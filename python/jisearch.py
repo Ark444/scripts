@@ -24,6 +24,13 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+#
+# CHANGELOG
+# 22/08/2016 v0.1:
+#   Initial release
+# 27/06/2018 v0.2:
+#   py3k-ok
+#   fixed url (jisho's not in beta anymore)
 
 import json
 import urllib
