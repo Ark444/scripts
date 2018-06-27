@@ -26,12 +26,13 @@
 # SOFTWARE.
 
 import json
+import urllib
 import weechat
 
 info = (
         'jisearch',
         'ark',
-        '0.1',
+        '0.2',
         'MIT',
         'Requests the jisho\'s API',
         '',
@@ -39,7 +40,7 @@ info = (
         )
 
 def jisho_search(data, buffer, message):
-    weechat.hook_process('url:http://beta.jisho.org/api/v1/search/words?keyword=' + message, 30 * 1000, 'jisearch_process_cb', '')
+    weechat.hook_process('url:https://jisho.org/api/v1/search/words?keyword=' + urllib.quote(message), 30 * 1000, 'jisearch_process_cb', '')
     return weechat.WEECHAT_RC_OK
 
 def jisearch_process_cb(data, command, rc, out, err):
@@ -54,8 +55,9 @@ def jisearch_process_cb(data, command, rc, out, err):
         result += b'reading: %s | ' % page_data['japanese'][0]['reading'].encode('utf-8')
         result += b'meaning: %s' % page_data['senses'][0]['english_definitions'][0].encode('utf-8')
 
-    except:
+    except Exception as e:
         result += 'no results found.'
+        weechat.prnt(weechat.current_buffer(), str(e))
     weechat.prnt(weechat.current_buffer(), result)
     return weechat.WEECHAT_RC_OK
 
